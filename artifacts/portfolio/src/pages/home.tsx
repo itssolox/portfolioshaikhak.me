@@ -42,7 +42,7 @@ export default function Home() {
     <main className="min-h-[100dvh] pt-32 pb-24 px-6 md:px-12 max-w-4xl mx-auto selection:bg-primary/20 selection:text-primary">
       
       {/* Hero Section */}
-      <section className="space-y-8 md:space-y-12 mb-32">
+      <section className="mb-20 space-y-8 md:mb-24 md:space-y-12">
         <FadeIn>
           <div className="w-16 h-16 rounded-full overflow-hidden mb-8 grayscale hover:grayscale-0 transition-all duration-500 border border-border/50">
             <img src={avatarUrl} alt="Akamal Shaikh" className="w-full h-full object-cover" />
