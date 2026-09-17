@@ -1,11 +1,42 @@
 import { FadeIn } from "@/components/animations";
 import { StatsSection } from "@/components/stats";
 import { Link } from "wouter";
-import { ArrowRight, ArrowUpRight, Github, Linkedin } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, ArrowUpRight, Check, Copy, Github, Linkedin, Mail } from "lucide-react";
 
 export default function Home() {
+  const email = "akamalferojshaikh1@gmail.com";
   const resumeUrl = `${import.meta.env.BASE_URL}Akamal_Shaikh_Resume.pdf`;
   const avatarUrl = `${import.meta.env.BASE_URL}akamal.png`;
+  const contactMenuRef = useRef<HTMLDivElement>(null);
+  const [contactMenuOpen, setContactMenuOpen] = useState(false);
+  const [emailCopied, setEmailCopied] = useState(false);
+
+  useEffect(() => {
+    if (!contactMenuOpen) return;
+
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      if (!contactMenuRef.current?.contains(event.target as Node)) {
+        setContactMenuOpen(false);
+      }
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setContactMenuOpen(false);
+    };
+
+    document.addEventListener("pointerdown", closeOnOutsideClick);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsideClick);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [contactMenuOpen]);
+
+  const copyEmail = async () => {
+    await navigator.clipboard.writeText(email);
+    setEmailCopied(true);
+    window.setTimeout(() => setEmailCopied(false), 2000);
+  };
 
   return (
     <main className="min-h-[100dvh] pt-32 pb-24 px-6 md:px-12 max-w-4xl mx-auto selection:bg-primary/20 selection:text-primary">
@@ -33,14 +64,60 @@ export default function Home() {
         </FadeIn>
 
         <FadeIn delay={0.15}>
-          <div className="flex flex-wrap gap-x-6 gap-y-3 font-mono text-sm">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-sm">
             <a
-              href="mailto:akamalferojshaikh1@gmail.com"
-              className="inline-flex items-center gap-2 rounded-full border border-foreground bg-foreground px-4 py-2 text-background transition-opacity hover:opacity-80"
-              data-testid="link-hero-contact"
+              href={`mailto:${email}`}
+              className="inline-flex sm:hidden items-center gap-2 rounded-full border border-foreground bg-foreground px-4 py-2 text-background transition-opacity hover:opacity-80"
+              data-testid="link-hero-contact-mobile"
             >
               Connect with me <ArrowUpRight className="w-4 h-4" />
             </a>
+            <div ref={contactMenuRef} className="relative hidden sm:block">
+              <button
+                type="button"
+                onClick={() => setContactMenuOpen((open) => !open)}
+                aria-expanded={contactMenuOpen}
+                aria-haspopup="menu"
+                className="inline-flex items-center gap-2 rounded-full border border-foreground bg-foreground px-4 py-2 text-background transition-opacity hover:opacity-80"
+                data-testid="button-hero-contact-desktop"
+              >
+                Connect with me <ArrowUpRight className="w-4 h-4" />
+              </button>
+              {contactMenuOpen && (
+                <div
+                  role="menu"
+                  className="absolute left-0 top-full z-20 mt-3 w-56 overflow-hidden rounded-xl border border-border bg-background p-1.5 text-foreground shadow-xl"
+                >
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={copyEmail}
+                    className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors hover:bg-muted"
+                  >
+                    {emailCopied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                    {emailCopied ? "Email copied" : "Copy email"}
+                  </button>
+                  <a
+                    role="menuitem"
+                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${email}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-muted"
+                  >
+                    <Mail className="h-4 w-4" /> Open Gmail
+                  </a>
+                  <a
+                    role="menuitem"
+                    href="https://www.linkedin.com/in/akamal-shaikh-22bb08382"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-muted"
+                  >
+                    <Linkedin className="h-4 w-4" /> LinkedIn
+                  </a>
+                </div>
+              )}
+            </div>
             <a href="https://github.com/akamalferojshaikh" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-primary transition-colors" data-testid="link-hero-github">
               <Github className="w-4 h-4" /> GitHub
             </a>
@@ -138,7 +215,7 @@ export default function Home() {
       </FadeIn>
 
       <FadeIn delay={0.7}>
-        <section className="mt-32 pt-16 border-t border-border/50 grid md:grid-cols-[1fr_1fr] gap-12">
+        <section id="contact" className="mt-32 scroll-mt-16 pt-16 border-t border-border/50 grid md:grid-cols-[1fr_1fr] gap-12">
           <div>
             <h2 className="text-sm font-mono uppercase tracking-widest text-muted-foreground mb-6">About</h2>
             <p className="text-base leading-relaxed max-w-md">
@@ -147,8 +224,8 @@ export default function Home() {
           </div>
           <div>
             <h2 className="text-sm font-mono uppercase tracking-widest text-muted-foreground mb-6">Contact</h2>
-            <a href="mailto:akamalferojshaikh1@gmail.com" className="block text-lg md:text-xl font-medium tracking-tight hover:text-primary transition-colors break-all" data-testid="link-email">
-              akamalferojshaikh1@gmail.com
+            <a href={`mailto:${email}`} className="block text-lg md:text-xl font-medium tracking-tight hover:text-primary transition-colors break-all" data-testid="link-email">
+              {email}
             </a>
             <div className="mt-6 flex flex-wrap gap-6 font-mono text-sm text-muted-foreground">
               <a href="https://www.linkedin.com/in/akamal-shaikh-22bb08382" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-primary transition-colors">
