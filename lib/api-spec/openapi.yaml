@@ -1,0 +1,176 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: stats
+    description: Live coding-activity stats proxied from public sources
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /stats/leetcode:
+    get:
+      operationId: getLeetcodeStats
+      tags: [stats]
+      summary: Live LeetCode profile stats
+      description: Solved counts, contest rating and the past year's submission calendar, fetched from LeetCode's public GraphQL API and cached server-side.
+      responses:
+        "200":
+          description: LeetCode stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeetcodeStats"
+        "502":
+          description: Upstream unavailable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /stats/github:
+    get:
+      operationId: getGithubStats
+      tags: [stats]
+      summary: Live GitHub profile stats
+      description: Public repo count, followers and recent public repositories, fetched from the GitHub REST API and cached server-side.
+      responses:
+        "200":
+          description: GitHub stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GithubStats"
+        "502":
+          description: Upstream unavailable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+    CalendarDay:
+      type: object
+      required: [date, count]
+      properties:
+        date:
+          type: string
+          description: ISO date (YYYY-MM-DD)
+        count:
+          type: integer
+    LeetcodeStats:
+      type: object
+      required:
+        - username
+        - profileUrl
+        - totalSolved
+        - easySolved
+        - mediumSolved
+        - hardSolved
+        - contestRating
+        - contestsAttended
+        - globalRanking
+        - topPercentage
+        - streak
+        - totalActiveDays
+        - calendar
+        - fetchedAt
+      properties:
+        username:
+          type: string
+        profileUrl:
+          type: string
+        totalSolved:
+          type: integer
+        easySolved:
+          type: integer
+        mediumSolved:
+          type: integer
+        hardSolved:
+          type: integer
+        contestRating:
+          type: ["number", "null"]
+        contestsAttended:
+          type: ["integer", "null"]
+        globalRanking:
+          type: ["integer", "null"]
+        topPercentage:
+          type: ["number", "null"]
+        streak:
+          type: integer
+        totalActiveDays:
+          type: integer
+        calendar:
+          type: array
+          description: One entry per day with at least one submission, past 12 months
+          items:
+            $ref: "#/components/schemas/CalendarDay"
+        fetchedAt:
+          type: string
+          format: date-time
+    GithubRepo:
+      type: object
+      required: [name, url, description, language, stars, pushedAt]
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        description:
+          type: ["string", "null"]
+        language:
+          type: ["string", "null"]
+        stars:
+          type: integer
+        pushedAt:
+          type: string
+          format: date-time
+    GithubStats:
+      type: object
+      required: [username, profileUrl, publicRepos, followers, repos, fetchedAt]
+      properties:
+        username:
+          type: string
+        profileUrl:
+          type: string
+        publicRepos:
+          type: integer
+        followers:
+          type: integer
+        repos:
+          type: array
+          items:
+            $ref: "#/components/schemas/GithubRepo"
+        fetchedAt:
+          type: string
+          format: date-time

@@ -1,0 +1,79 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Rebuild every 6 hours so the LeetCode/GitHub stats snapshot stays current.
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; let an in-flight production deploy finish.
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Snapshot LeetCode and GitHub stats
+        run: pnpm --filter @workspace/api-server run snapshot-stats ../portfolio/public/data
+        env:
+          NODE_ENV: production
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build the site
+        run: pnpm --filter @workspace/portfolio run build
+        env:
+          NODE_ENV: production
+          BASE_PATH: /
+          # Required by vite.config.ts; not used by a static build.
+          PORT: "5173"
+          VITE_STATS_SOURCE: static
+
+      - name: Prepare Pages artifact
+        working-directory: artifacts/portfolio/dist/public
+        run: |
+          cp "$GITHUB_WORKSPACE/CNAME" CNAME
+          # Serve the app for deep links such as /work/graphrag (client-side routing).
+          cp index.html 404.html
+          touch .nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: artifacts/portfolio/dist/public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
