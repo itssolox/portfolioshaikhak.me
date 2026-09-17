@@ -34,6 +34,13 @@ export default function Home() {
 
         <FadeIn delay={0.15}>
           <div className="flex flex-wrap gap-x-6 gap-y-3 font-mono text-sm">
+            <a
+              href="mailto:akamalferojshaikh1@gmail.com"
+              className="inline-flex items-center gap-2 rounded-full border border-foreground bg-foreground px-4 py-2 text-background transition-opacity hover:opacity-80"
+              data-testid="link-hero-contact"
+            >
+              Connect with me <ArrowUpRight className="w-4 h-4" />
+            </a>
             <a href="https://github.com/akamalferojshaikh" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-primary transition-colors" data-testid="link-hero-github">
               <Github className="w-4 h-4" /> GitHub
             </a>
