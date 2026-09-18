@@ -1,8 +1,12 @@
-import { FadeIn } from "@/components/animations";
+import { FadeIn, SplitHeading } from "@/components/animations";
+import { GraphFigure } from "@/components/figures/graph-figure";
+import { useFigureSize } from "@/components/figures/use-figure";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
 import { Link } from "wouter";
 
 export default function GraphRAG() {
+  const figureSize = useFigureSize();
+
   return (
     <main className="min-h-[100dvh] pt-32 pb-24 px-6 md:px-12 max-w-3xl mx-auto">
       <FadeIn>
@@ -11,9 +15,13 @@ export default function GraphRAG() {
         </Link>
       </FadeIn>
 
-      <FadeIn delay={0.1}>
-        <header className="mb-16">
-          <h1 className="text-3xl md:text-5xl font-medium tracking-tight mb-6">GraphRAG Movie Intelligence System</h1>
+      <header className="mb-16">
+        <SplitHeading
+          text="GraphRAG Movie Intelligence System"
+          delay={0.1}
+          className="text-3xl md:text-5xl font-medium tracking-tight mb-6"
+        />
+        <FadeIn delay={0.4}>
           <div className="flex flex-wrap gap-4 text-sm font-mono text-muted-foreground mb-8">
             <span>Node.js</span>
             <span>Neo4j</span>
@@ -23,10 +31,17 @@ export default function GraphRAG() {
           <p className="text-xl text-muted-foreground leading-relaxed">
             Combining knowledge graphs with vector search to answer complex relationship questions where traditional RAG falls short.
           </p>
-        </header>
-      </FadeIn>
+        </FadeIn>
+      </header>
 
-      <FadeIn delay={0.2}>
+      <figure className="mb-16">
+        <GraphFigure key={figureSize} size={figureSize} play="mount" delay={0.5} />
+        <figcaption className="mt-4 font-mono text-xs text-muted-foreground">
+          Two hops that similarity search can't take on its own: Nolan → Inception ← DiCaprio.
+        </figcaption>
+      </figure>
+
+      <FadeIn delay={0.5}>
         <div className="flex gap-6 mb-16 border-y border-border/50 py-6">
           <a href="https://github.com/akamalferojshaikh/GraphRAG-Pipeline-Movie-Intellegence-system-" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 font-medium hover:text-primary transition-colors">
             <Github className="w-4 h-4" /> Source Code
@@ -38,7 +53,7 @@ export default function GraphRAG() {
         </div>
       </FadeIn>
 
-      <FadeIn delay={0.3}>
+      <FadeIn delay={0.6}>
         <article className="prose prose-neutral dark:prose-invert max-w-none prose-p:leading-relaxed prose-headings:font-medium prose-headings:tracking-tight">
           <h3>The Problem</h3>
           <p>

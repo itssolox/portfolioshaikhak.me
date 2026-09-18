@@ -5,6 +5,8 @@ import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Nav } from '@/components/nav';
+import { SmoothScroll } from '@/components/smooth-scroll';
+import { ScrollProgress } from '@/components/scroll-progress';
 import NotFound from '@/pages/not-found';
 import Home from '@/pages/home';
 import GraphRAG from '@/pages/work/graphrag';
@@ -50,10 +52,13 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
-            <div className="relative min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-primary">
-              <Nav />
-              <Router />
-            </div>
+            <SmoothScroll>
+              <div className="relative min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-primary">
+                <ScrollProgress />
+                <Nav />
+                <Router />
+              </div>
+            </SmoothScroll>
           </WouterRouter>
           <Toaster />
         </TooltipProvider>

@@ -2,7 +2,7 @@
 
 Personal portfolio of Akamal Shaikh — live at [portfolioshaikhak.me](https://portfolioshaikhak.me).
 
-React + Vite + Tailwind frontend with live LeetCode and GitHub stats. The site follows the system light/dark preference.
+React + Vite + Tailwind frontend with live LeetCode and GitHub stats, GSAP scroll animations and Lenis smooth scrolling. The site follows the system light/dark preference.
 
 ## Structure
 

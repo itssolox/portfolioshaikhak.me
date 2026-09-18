@@ -1,8 +1,12 @@
-import { FadeIn } from "@/components/animations";
+import { FadeIn, SplitHeading } from "@/components/animations";
+import { SigmoidFigure } from "@/components/figures/sigmoid-figure";
+import { useFigureSize } from "@/components/figures/use-figure";
 import { ArrowLeft, ExternalLink, Github, TrendingUp } from "lucide-react";
 import { Link } from "wouter";
 
 export default function PlacementPredictor() {
+  const figureSize = useFigureSize();
+
   return (
     <main className="min-h-[100dvh] pt-32 pb-24 px-6 md:px-12 max-w-3xl mx-auto">
       <FadeIn>
@@ -11,9 +15,13 @@ export default function PlacementPredictor() {
         </Link>
       </FadeIn>
 
-      <FadeIn delay={0.1}>
-        <header className="mb-16">
-          <h1 className="text-3xl md:text-5xl font-medium tracking-tight mb-6">Placement Predictor</h1>
+      <header className="mb-16">
+        <SplitHeading
+          text="Placement Predictor"
+          delay={0.1}
+          className="text-3xl md:text-5xl font-medium tracking-tight mb-6"
+        />
+        <FadeIn delay={0.4}>
           <div className="flex flex-wrap gap-4 text-sm font-mono text-muted-foreground mb-8">
             <span>C++</span>
             <span>Gradient Descent</span>
@@ -22,10 +30,17 @@ export default function PlacementPredictor() {
           <p className="text-xl text-muted-foreground leading-relaxed">
             A logistic-regression classifier — a single neuron with a sigmoid — written from scratch in C++ with no ML framework, so every step of training is visible in the code.
           </p>
-        </header>
-      </FadeIn>
+        </FadeIn>
+      </header>
 
-      <FadeIn delay={0.2}>
+      <figure className="mb-16">
+        <SigmoidFigure key={figureSize} size={figureSize} play="mount" delay={0.5} />
+        <figcaption className="mt-4 font-mono text-xs text-muted-foreground">
+          One neuron: σ(w·x + b) turns four student features into a placement probability; 0.5 is the decision threshold.
+        </figcaption>
+      </figure>
+
+      <FadeIn delay={0.5}>
         <div className="flex flex-wrap gap-6 mb-16 border-y border-border/50 py-6">
           <a href="https://github.com/akamalferojshaikh/placement-predictor-DL-model" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 font-medium hover:text-primary transition-colors">
             <Github className="w-4 h-4" /> Source Code
@@ -37,7 +52,7 @@ export default function PlacementPredictor() {
         </div>
       </FadeIn>
 
-      <FadeIn delay={0.3}>
+      <FadeIn delay={0.6}>
         <article className="prose prose-neutral dark:prose-invert max-w-none prose-p:leading-relaxed prose-headings:font-medium prose-headings:tracking-tight">
           <h3>The Motivation</h3>
           <p>
