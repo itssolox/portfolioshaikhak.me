@@ -1,5 +1,6 @@
 import { FadeIn, Magnetic, Rule, SplitWords } from "@/components/animations";
 import { GraphFigure } from "@/components/figures/graph-figure";
+import { ImpactFigure } from "@/components/figures/impact-figure";
 import { SigmoidFigure } from "@/components/figures/sigmoid-figure";
 import { StatsSection } from "@/components/stats";
 import { gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
@@ -174,6 +175,30 @@ export default function Home() {
 
         <div className="space-y-16">
           <FadeIn delay={1}>
+            <Link href="/work/repobrain" className="group block">
+              <div className="grid md:grid-cols-[1fr_300px] gap-8 items-start">
+                <div>
+                  <h3 className="text-2xl font-medium mb-3 group-hover:text-primary transition-colors flex items-center gap-2">
+                    <span className={projectTitleUnderline}>RepoBrain</span> <ArrowUpRight className="w-5 h-5 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed max-w-xl">
+                    Codebase intelligence: connect a GitHub repo and it is parsed with tree-sitter into a Neo4j code graph plus a vector index. Chat with the repo with file:line citations, run blast-radius impact analysis, trace stack traces, find dead code and review AI-drafted PR comments.
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <ImpactFigure play="scroll" delay={1.2} />
+                  <div className="font-mono text-xs text-muted-foreground flex flex-wrap gap-2 md:justify-end">
+                    <span className="px-2 py-1 rounded-sm bg-muted/50 border border-border/50">TypeScript</span>
+                    <span className="px-2 py-1 rounded-sm bg-muted/50 border border-border/50">Neo4j</span>
+                    <span className="px-2 py-1 rounded-sm bg-muted/50 border border-border/50">tree-sitter</span>
+                    <span className="px-2 py-1 rounded-sm bg-muted/50 border border-border/50">LangGraph</span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </FadeIn>
+
+          <FadeIn delay={1.1}>
             <Link href="/work/graphrag" className="group block">
               <div className="grid md:grid-cols-[1fr_300px] gap-8 items-start">
                 <div>
@@ -185,7 +210,7 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="space-y-4">
-                  <GraphFigure play="scroll" delay={1.2} />
+                  <GraphFigure play="scroll" delay={1.3} />
                   <div className="font-mono text-xs text-muted-foreground flex flex-wrap gap-2 md:justify-end">
                     <span className="px-2 py-1 rounded-sm bg-muted/50 border border-border/50">Node.js</span>
                     <span className="px-2 py-1 rounded-sm bg-muted/50 border border-border/50">Neo4j</span>
@@ -196,7 +221,7 @@ export default function Home() {
             </Link>
           </FadeIn>
 
-          <FadeIn delay={1.1}>
+          <FadeIn delay={1.2}>
             <Link href="/work/placement-predictor" className="group block">
               <div className="grid md:grid-cols-[1fr_300px] gap-8 items-start">
                 <div>
@@ -208,7 +233,7 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="space-y-4">
-                  <SigmoidFigure play="scroll" delay={1.3} />
+                  <SigmoidFigure play="scroll" delay={1.4} />
                   <div className="font-mono text-xs text-muted-foreground flex flex-wrap gap-2 md:justify-end">
                     <span className="px-2 py-1 rounded-sm bg-muted/50 border border-border/50">C++</span>
                     <span className="px-2 py-1 rounded-sm bg-muted/50 border border-border/50">From scratch</span>

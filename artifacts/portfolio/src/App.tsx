@@ -11,6 +11,7 @@ import NotFound from '@/pages/not-found';
 import Home from '@/pages/home';
 import GraphRAG from '@/pages/work/graphrag';
 import PlacementPredictor from '@/pages/work/placement-predictor';
+import RepoBrain from '@/pages/work/repobrain';
 
 import {
   Route,
@@ -33,6 +34,7 @@ function Router() {
     <RoutedErrorBoundary>
       <Switch>
         <Route path="/" component={Home} />
+        <Route path="/work/repobrain" component={RepoBrain} />
         <Route path="/work/graphrag" component={GraphRAG} />
         <Route path="/work/placement-predictor" component={PlacementPredictor} />
         <Route component={NotFound} />
