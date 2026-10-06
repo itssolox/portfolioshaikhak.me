@@ -14,7 +14,7 @@ const projectTitleUnderline =
 
 export default function Home() {
   const email = "akamalferojshaikh1@gmail.com";
-  const resumeUrl = `${import.meta.env.BASE_URL}AKAMAL%20SHAIKH.pdf`;
+  const resumeUrl = `${import.meta.env.BASE_URL}AKAMAL SHAIKH.pdf`;
   const avatarUrl = `${import.meta.env.BASE_URL}akamal.png`;
   const heroRef = useRef<HTMLElement>(null);
   const contactMenuRef = useRef<HTMLDivElement>(null);
