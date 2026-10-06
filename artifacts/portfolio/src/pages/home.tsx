@@ -14,7 +14,7 @@ const projectTitleUnderline =
 
 export default function Home() {
   const email = "akamalferojshaikh1@gmail.com";
-  const resumeUrl = `${import.meta.env.BASE_URL}Akamal_Shaikh_Resume.pdf`;
+  const resumeUrl = `${import.meta.env.BASE_URL}AKAMAL%20SHAIKH.pdf`;
   const avatarUrl = `${import.meta.env.BASE_URL}akamal.png`;
   const heroRef = useRef<HTMLElement>(null);
   const contactMenuRef = useRef<HTMLDivElement>(null);
@@ -25,7 +25,6 @@ export default function Home() {
     () => {
       if (prefersReducedMotion()) return;
 
-      // Entrance: avatar, then the headline word by word, then the meta line and actions.
       gsap
         .timeline({ defaults: { ease: "power3.out" } })
         .from("[data-hero-avatar]", { scale: 0.6, autoAlpha: 0, duration: 0.8, ease: "back.out(1.7)" })
@@ -33,7 +32,6 @@ export default function Home() {
         .from("[data-hero-meta] > *", { autoAlpha: 0, y: 12, duration: 0.6, stagger: 0.08 }, "-=0.5")
         .from("[data-hero-actions] > *", { autoAlpha: 0, y: 12, duration: 0.6, stagger: 0.06 }, "-=0.45");
 
-      // The whole hero drifts up and fades as it scrolls out of view.
       gsap.to(heroRef.current, {
         y: -48,
         autoAlpha: 0,
@@ -72,8 +70,6 @@ export default function Home() {
 
   return (
     <main className="min-h-[100dvh] pt-32 pb-24 px-6 md:px-12 max-w-4xl mx-auto selection:bg-primary/20 selection:text-primary">
-      
-      {/* Hero Section */}
       <section ref={heroRef} className="mb-20 space-y-8 md:mb-24 md:space-y-12">
         <div>
           <div
@@ -121,53 +117,52 @@ export default function Home() {
               </button>
             </Magnetic>
             {contactMenuOpen && (
-                <div
-                  role="menu"
-                  className="absolute left-0 top-full z-20 mt-3 w-56 overflow-hidden rounded-xl border border-border bg-background p-1.5 text-foreground shadow-xl"
+              <div
+                role="menu"
+                className="absolute left-0 top-full z-20 mt-3 w-56 overflow-hidden rounded-xl border border-border bg-background p-1.5 text-foreground shadow-xl"
+              >
+                <button
+                  type="button"
+                  role="menuitem"
+                  onClick={copyEmail}
+                  className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors hover:bg-muted"
                 >
-                  <button
-                    type="button"
-                    role="menuitem"
-                    onClick={copyEmail}
-                    className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors hover:bg-muted"
-                  >
-                    {emailCopied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                    {emailCopied ? "Email copied" : "Copy email"}
-                  </button>
-                  <a
-                    role="menuitem"
-                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${email}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-muted"
-                  >
-                    <Mail className="h-4 w-4" /> Open Gmail
-                  </a>
-                  <a
-                    role="menuitem"
-                    href="https://www.linkedin.com/in/akamal-shaikh-22bb08382"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-muted"
-                  >
-                    <Linkedin className="h-4 w-4" /> LinkedIn
-                  </a>
-                </div>
-              )}
-            </div>
-            <a href="https://github.com/akamalferojshaikh" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-primary transition-colors" data-testid="link-hero-github">
-              <Github className="w-4 h-4" /> GitHub
-            </a>
-            <a href="https://www.linkedin.com/in/akamal-shaikh-22bb08382" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-primary transition-colors" data-testid="link-hero-linkedin">
-              <Linkedin className="w-4 h-4" /> LinkedIn
-            </a>
+                  {emailCopied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                  {emailCopied ? "Email copied" : "Copy email"}
+                </button>
+                <a
+                  role="menuitem"
+                  href={`https://mail.google.com/mail/?view=cm&fs=1&to=${email}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-muted"
+                >
+                  <Mail className="h-4 w-4" /> Open Gmail
+                </a>
+                <a
+                  role="menuitem"
+                  href="https://www.linkedin.com/in/akamal-shaikh-22bb08382"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-muted"
+                >
+                  <Linkedin className="h-4 w-4" /> LinkedIn
+                </a>
+              </div>
+            )}
+          </div>
+          <a href="https://github.com/akamalferojshaikh" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-primary transition-colors" data-testid="link-hero-github">
+            <Github className="w-4 h-4" /> GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/akamal-shaikh-22bb08382" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-primary transition-colors" data-testid="link-hero-linkedin">
+            <Linkedin className="w-4 h-4" /> LinkedIn
+          </a>
           <a href={resumeUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-primary transition-colors" data-testid="link-hero-resume">
             Resume <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>
       </section>
 
-      {/* Selected Work */}
       <section className="mb-32">
         <FadeIn delay={0.9}>
           <h2 className="text-sm font-mono uppercase tracking-widest text-muted-foreground mb-12">Selected Work</h2>
@@ -206,7 +201,7 @@ export default function Home() {
                     <span className={projectTitleUnderline}>GraphRAG Movie Intelligence</span> <ArrowUpRight className="w-5 h-5 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
                   </h3>
                   <p className="text-muted-foreground leading-relaxed max-w-xl">
-                    A GraphRAG pipeline that routes each question to a Neo4j knowledge graph or Pinecone vector search, answering multi-hop relationship questions that plain RAG gets wrong. Web demo in progress.
+                    A GraphRAG pipeline that routes each question to a Neo4j knowledge graph or Pinecone vector search, answering multi-hop relationship questions that plain RAG gets wrong. Web demo and deployed API included.
                   </p>
                 </div>
                 <div className="space-y-4">
@@ -246,7 +241,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Skills & Experience */}
       <section className="mb-32">
         <div className="grid md:grid-cols-2 gap-16">
           <FadeIn>
@@ -289,7 +283,7 @@ export default function Home() {
           <div>
             <h2 className="text-sm font-mono uppercase tracking-widest text-muted-foreground mb-6">About</h2>
             <p className="text-base leading-relaxed max-w-md">
-              I'm a computer engineering student in Pune who likes the whole stack of a GenAI product: the retrieval layer, the graph or vector store underneath it, and the React interface people actually use. When a library hides something I don't understand, I rebuild it from scratch until I do. Currently looking for internships and full-time roles in web development and GenAI.
+              I'm a computer engineering student in Pune who likes the whole stack of a GenAI product: the retrieval layer, the graph or vector store underneath it, and the React interface people use to interact with it.
             </p>
           </div>
           <div>
