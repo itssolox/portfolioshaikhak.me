@@ -14,7 +14,7 @@ const projectTitleUnderline =
 
 export default function Home() {
   const email = "akamalferojshaikh1@gmail.com";
-  const resumeUrl = `${import.meta.env.BASE_URL}AKAMAL SHAIKH.pdf`;
+  const resumeUrl = `${import.meta.env.BASE_URL}Akamal_Shaikh_Resume.pdf`;
   const avatarUrl = `${import.meta.env.BASE_URL}akamal.png`;
   const heroRef = useRef<HTMLElement>(null);
   const contactMenuRef = useRef<HTMLDivElement>(null);
@@ -174,10 +174,10 @@ export default function Home() {
               <div className="grid md:grid-cols-[1fr_300px] gap-8 items-start">
                 <div>
                   <h3 className="text-2xl font-medium mb-3 group-hover:text-primary transition-colors flex items-center gap-2">
-                    <span className={projectTitleUnderline}>RepoBrain</span> <ArrowUpRight className="w-5 h-5 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+                    <span className={projectTitleUnderline}>RepoBrain</span> <ArrowUpRight className="w-5 h-5 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:-translate-y-0" />
                   </h3>
                   <p className="text-muted-foreground leading-relaxed max-w-xl">
-                    Codebase intelligence: connect a GitHub repo and it is parsed with tree-sitter into a Neo4j code graph plus a vector index. Chat with the repo with file:line citations, run blast-radius impact analysis, trace stack traces, find dead code and review AI-drafted PR comments.
+                    Codebase intelligence: connect a GitHub repo and it is parsed with tree-sitter into a Neo4j code graph plus a vector index. Chat with the repo with file:line citations, run bl.
                   </p>
                 </div>
                 <div className="space-y-4">
@@ -198,10 +198,10 @@ export default function Home() {
               <div className="grid md:grid-cols-[1fr_300px] gap-8 items-start">
                 <div>
                   <h3 className="text-2xl font-medium mb-3 group-hover:text-primary transition-colors flex items-center gap-2">
-                    <span className={projectTitleUnderline}>GraphRAG Movie Intelligence</span> <ArrowUpRight className="w-5 h-5 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+                    <span className={projectTitleUnderline}>GraphRAG Movie Intelligence</span> <ArrowUpRight className="w-5 h-5 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:-translate-y-0" />
                   </h3>
                   <p className="text-muted-foreground leading-relaxed max-w-xl">
-                    A GraphRAG pipeline that routes each question to a Neo4j knowledge graph or Pinecone vector search, answering multi-hop relationship questions that plain RAG gets wrong. Web demo and deployed API included.
+                    A GraphRAG pipeline that routes each question to a Neo4j knowledge graph or Pinecone vector search, answering multi-hop relationship questions that plain RAG gets wrong. Web d.
                   </p>
                 </div>
                 <div className="space-y-4">
@@ -221,7 +221,7 @@ export default function Home() {
               <div className="grid md:grid-cols-[1fr_300px] gap-8 items-start">
                 <div>
                   <h3 className="text-2xl font-medium mb-3 group-hover:text-primary transition-colors flex items-center gap-2">
-                    <span className={projectTitleUnderline}>Placement Predictor</span> <ArrowUpRight className="w-5 h-5 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+                    <span className={projectTitleUnderline}>Placement Predictor</span> <ArrowUpRight className="w-5 h-5 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:-translate-y-0" />
                   </h3>
                   <p className="text-muted-foreground leading-relaxed max-w-xl">
                     A logistic-regression classifier written from scratch in C++ with no ML framework, trained on 2,000+ student records. The LinkedIn write-up reached 50,000+ people.
@@ -283,7 +283,7 @@ export default function Home() {
           <div>
             <h2 className="text-sm font-mono uppercase tracking-widest text-muted-foreground mb-6">About</h2>
             <p className="text-base leading-relaxed max-w-md">
-              I'm a computer engineering student in Pune who likes the whole stack of a GenAI product: the retrieval layer, the graph or vector store underneath it, and the React interface people use to interact with it.
+              I'm a computer engineering student in Pune who likes the whole stack of a GenAI product: the retrieval layer, the graph or vector store underneath it, and the React interface people.
             </p>
           </div>
           <div>
